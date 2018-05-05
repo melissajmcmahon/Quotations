@@ -1,0 +1,49 @@
+@charset "UTF-8";
+/* Author: Melissa McMahon */
+.mainBody {
+	background-color: #fefcf4;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	margin: 0px;
+}
+
+.myTitle {
+	text-align: center;
+	font-style: italic;
+}
+.tab{
+	overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #F0F8FF;
+}
+.tabButton {
+	float: left;
+	margin: 10px;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s; 
+}
+.quoteHolder{
+	margin: 20px;
+	padding: 10px;
+	border: solid;
+	background-color: #fefcf4;
+	box-shadow: 5px 10px;
+}
+.quote{
+	margin: 10px;
+	padding: 10px;
+	border: dashed;
+	/* width: 500px; */
+	background-color: #F8F8FF;
+}
+.RLAHolder{
+	border: solid;
+	background-color: #F8F8FF;
+	margin: 20px;
+	padding: 10px;
+	width: 250px;
+	height: 150px;
+}
