@@ -1,3 +1,4 @@
+<!-- this file has the html code for the login page along with the ajax call to log the person in through the database. -->
 <?php
 session_start();             
 ?>
@@ -19,11 +20,14 @@ Password: <input type = "password" id = "PW" placeholder = "Password" required> 
 </div>
 <script>
 function login() {
+	//UNL gets the input from the UN input.
 	var UNL = document.getElementById("UN").value;
+	//PWL gets the input from the PW input.
 	var PWL = document.getElementById("PW").value;	
+	// check is a div that will be used to report error statements.
 	var check = document.getElementById("check");
 	if (document.getElementById("UN").validity.valid && document.getElementById("PW").validity.valid ){
-		//alert("valid")
+		//checking if the user put input for all fields.	
 		var anObj = new XMLHttpRequest();
 		anObj.open("GET", "controller.php?UNL=" + UNL+"&PWL="+PWL, true);
 		anObj.send();
@@ -31,19 +35,17 @@ function login() {
  		anObj.onreadystatechange = function () {
 			if (anObj.readyState == 4 && anObj.status == 200) {
 				var curr = anObj.responseText;
-				//alert(curr);
 				if(curr == "wrong"){
-					//alert(curr);
+					// if the response text is 'wrong' the passwords did not match
 					check.innerHTML = "Wrong Password.";
 				}
 				else if( curr == "empty"){
+					// if the response text is an empty array, the username does not exist.
 					check.innerHTML = "<br>Username does not exist."
 				}
-				else{					
+				else{
+					// otherwise the login attempy was successful so go to the 'home page'
 					window.location.href = 'quotes.php';
-// 					var main = document.getElementById("main");
- 					//getAllQuotesForUser();
-					//alert(curr);
 					
 				}
 		
@@ -51,7 +53,7 @@ function login() {
 		}
 	}
 	else{
-		//alert("not valid")
+		// if the user did not fill out all fields, print an error message.
 		 check.innerHTML = "<br>Please Fill out both fields.";
 		}
 }
