@@ -1,3 +1,4 @@
+<!-- This file holds the html code for the page 'add quote' and the call to add that quote to the database.  -->
 <?php
 session_start();
 ?>
@@ -18,7 +19,9 @@ Author: <input type = "text" id = "author" required pattern=".{1,}"> <br> <br><b
 </div>
 <script>
 function addQuote() {
+	// quote will hold the quote string input by the user.
 	var quote = document.getElementById("quote").value;
+	// quote will hold the quote string input by the user.
 	var author = document.getElementById("author").value;
 	var check = document.getElementById("change");
 	//alert(quote);
