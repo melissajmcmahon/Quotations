@@ -21,23 +21,26 @@ Author: <input type = "text" id = "author" required pattern=".{1,}"> <br> <br><b
 function addQuote() {
 	// quote will hold the quote string input by the user.
 	var quote = document.getElementById("quote").value;
-	// quote will hold the quote string input by the user.
+	// quote will hold the author string input by the user.
 	var author = document.getElementById("author").value;
+	// check is a div that I will use to report error messages.
 	var check = document.getElementById("change");
-	//alert(quote);
 	if (document.getElementById("quote").validity.valid && document.getElementById("author").validity.valid ){
+		// checking that the user put input into all required fields.
 		var anObj = new XMLHttpRequest();
 		anObj.open("GET", "controller.php?author=" + author+"&quote="+quote, true);
 		anObj.send();
  		anObj.onreadystatechange = function () {
 			if (anObj.readyState == 4 && anObj.status == 200) {
-				//var curr = anObj.responseText;
+				// if we get to this point, the quote was logged into the database, so we can go back to
+				// the quotes.php the 'home page'
 				window.location.href = 'quotes.php';
 				}
 		
 			}
 		}
 	else{
+		// if they user didn't fill the input fields out correctly, they will get this error message.
 		check.innerHTML = "<br>Both fields must be filled out."
 	}
 	
