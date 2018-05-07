@@ -1,3 +1,4 @@
+<!--  This file is the main page for the website. Contains the html along with the javascript/ajax function calls. -->
 <?php
 session_start();
 ?>
@@ -32,7 +33,10 @@ if (isset($_SESSION['currUser'])){
 <div id = "change" class = "quoteHolder">
 </div>
 <script>
+//get all quotes sets up the homepage according to the current database. If the quote is flagged, it will not show up. 
+// The quotes show up with highest rating first, and then most recently added if ratings are the same.
 function getAllQuotes(){
+	// change is a div that will be updated based on the quotes, authors, and ratings in the database.
 	div = document.getElementById("change");
 	var anObj = new XMLHttpRequest();
 	anObj.open("GET", "controller.php?all=" + "all", true);
@@ -42,11 +46,10 @@ function getAllQuotes(){
 	  anObj.onreadystatechange = function () {
 	      if (anObj.readyState == 4 && anObj.status == 200) {
 	          var arr = JSON.parse(anObj.responseText);
-	          //alert(arr);
 	          for (var i = 0; i < arr.length; i++) {
 	              var quote = arr[i]["quote"];
-	              //alert(quote);
 	              var author = arr[i]["author"];
+			// myStr is a string that will hold the html code for the page as it ratings and quotes are added.
 	              myStr+= "<div class = 'quote'>"+quote+"<br>"+
 	              "--"+author+"<br><br>"+
 	              "<input type = 'button' value = '+' onclick = 'changeRating("+ 1 + "," +arr[i]['id']+")'>"+
@@ -56,12 +59,14 @@ function getAllQuotes(){
 	              "</div>";
 	              
 	          }
+		  // I make the string of html above, and then set it here as it avoided my page reloading and bringing 
+		  // the user to the top each time an action was performed.
 	          div.innerHTML = (myStr);
 	        
 	      }
 	   }	
 }
-			
+//changeRating takes in a positive or negative 1 along with a quote id, and passes them to an ajax call.			
 function changeRating(num,id){
 	var anObj = new XMLHttpRequest();
 	anObj.open("GET", "controller.php?id=" + id+"&num="+num, true);
@@ -76,6 +81,7 @@ function changeRating(num,id){
 		}
 	
 }
+// flagThis takes in a quote id and calls the ajax to change the boolean flagged in my database from 0 to 1. 
 function flagThis(idF){
 	var anObj = new XMLHttpRequest();
 	anObj.open("GET", "controller.php?idF=" + idF, true);
@@ -89,6 +95,8 @@ function flagThis(idF){
 			
 		}
 }
+//logout calls the ajax function to unset the current session.
+	// on a look in, I shouldnt need to call ajax to unset my session and destroy it.
 function logout(){
 	var anObj = new XMLHttpRequest();
 	anObj.open("GET", "controller.php?logout=" + "logout", true);
@@ -101,7 +109,7 @@ function logout(){
 			
 		}
 }
-
+// unflagAll calls an ajax function which changes all the 'flagged' booleans in my database to 0.
 function unflagAll(){
 	var anObj = new XMLHttpRequest();
 	anObj.open("GET", "controller.php?unflag=" + "unflag", true);
